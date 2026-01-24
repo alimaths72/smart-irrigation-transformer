@@ -1,6 +1,8 @@
 import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
 
 # --------------------------------
 # Load dataset safely
@@ -23,20 +25,21 @@ y = df["result"]
 # --------------------------------
 
 X_train, X_test, y_train, y_test = train_test_split(
-    X,
-    y,
-    test_size=0.2,
-    random_state=42
+    X, y, test_size=0.2, random_state=42
 )
 
 # --------------------------------
-# Print shapes to verify split
+# Train baseline model
 # --------------------------------
 
-print("Training set size:")
-print("X_train:", X_train.shape)
-print("y_train:", y_train.shape)
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train, y_train)
 
-print("\nTest set size:")
-print("X_test:", X_test.shape)
-print("y_test:", y_test.shape)
+# --------------------------------
+# Evaluate model
+# --------------------------------
+
+y_pred = model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+
+print("Baseline Logistic Regression Accuracy:", accuracy)
