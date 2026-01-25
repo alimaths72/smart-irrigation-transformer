@@ -1,0 +1,12 @@
+Model Evaluation Results
+
+Baseline Model:
+Algorithm: Logistic Regression
+Accuracy: 81.69%
+
+Transformer Model:
+Architecture: Simple Transformer Encoder
+Accuracy: 86.51%
+
+Conclusion:
+The Transformer-based model outperforms the baseline model, demonstrating improved learning of feature interactions for smart irrigation requirement prediction.
