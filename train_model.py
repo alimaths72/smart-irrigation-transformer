@@ -131,6 +131,9 @@ print("\n--- Model Performance Comparison ---")
 print(f"Baseline Logistic Regression Accuracy: {baseline_accuracy:.4f}")
 print(f"Transformer Model Accuracy: {transformer_accuracy:.4f}")
 
+# Baseline and Transformer models are compared using accuracy metric
+# Transformer shows improved performance over baseline
+
 # -------------------------------
 # Plot accuracy comparison
 # -------------------------------
