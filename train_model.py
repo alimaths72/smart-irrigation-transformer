@@ -164,38 +164,11 @@ for i, v in enumerate(accuracies):
 
 plt.show()
 # --------------------------------
-# Inference: Predict on new user input
+# Save trained model and scaler
 # --------------------------------
-# This section demonstrates real-world usage of the trained model
+import joblib
 
-print("\n--- Irrigation Requirement Prediction (User Input) ---")
+torch.save(model.state_dict(), "transformer_model.pth")
+joblib.dump(scaler, "scaler.pkl")
 
-try:
-    moi_input = float(input("Enter Moisture Index (MOI): "))
-    temp_input = float(input("Enter Temperature: "))
-    humidity_input = float(input("Enter Humidity: "))
-
-    # Create input array
-    user_data = [[moi_input, temp_input, humidity_input]]
-
-    # Scale input using the same scaler
-    user_data_scaled = scaler.transform(user_data)
-
-    # Convert to tensor
-    user_tensor = torch.tensor(user_data_scaled, dtype=torch.float32)
-
-    # Predict
-    model.eval()
-    with torch.no_grad():
-        output = model(user_tensor)
-        prediction = torch.argmax(output, dim=1).item()
-
-    # Display result
-    if prediction == 1:
-        print("\nPrediction: Irrigation REQUIRED")
-        print("Note: Model prediction is influenced by majority irrigation cases in training data.")
-    else:
-        print("\nPrediction: Irrigation LIKELY NOT required")
-
-except ValueError:
-    print("Invalid input. Please enter numeric values only.")
+print("Model and scaler saved successfully.")
