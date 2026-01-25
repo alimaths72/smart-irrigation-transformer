@@ -1,4 +1,16 @@
 # -------------------------------
+# Reproducibility: Fix random seeds
+# -------------------------------
+import random
+import numpy as np
+import torch
+
+SEED = 42
+random.seed(SEED)
+np.random.seed(SEED)
+torch.manual_seed(SEED)
+
+# -------------------------------
 # Fix OpenMP runtime issue (Windows)
 # -------------------------------
 import os
@@ -150,3 +162,37 @@ for i, v in enumerate(accuracies):
     plt.text(i, v + 0.01, f"{v:.2f}", ha='center')
 
 plt.show()
+# --------------------------------
+# Inference: Predict on new user input
+# --------------------------------
+
+print("\n--- Irrigation Requirement Prediction (User Input) ---")
+
+try:
+    moi_input = float(input("Enter Moisture Index (MOI): "))
+    temp_input = float(input("Enter Temperature: "))
+    humidity_input = float(input("Enter Humidity: "))
+
+    # Create input array
+    user_data = [[moi_input, temp_input, humidity_input]]
+
+    # Scale input using the same scaler
+    user_data_scaled = scaler.transform(user_data)
+
+    # Convert to tensor
+    user_tensor = torch.tensor(user_data_scaled, dtype=torch.float32)
+
+    # Predict
+    model.eval()
+    with torch.no_grad():
+        output = model(user_tensor)
+        prediction = torch.argmax(output, dim=1).item()
+
+    # Display result
+    if prediction == 1:
+        print("\nPrediction: Irrigation REQUIRED")
+    else:
+        print("\nPrediction: Irrigation NOT required")
+
+except ValueError:
+    print("Invalid input. Please enter numeric values only.")
