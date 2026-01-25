@@ -1,16 +1,4 @@
 # -------------------------------
-# Reproducibility: Fix random seeds
-# -------------------------------
-import random
-import numpy as np
-import torch
-
-SEED = 42
-random.seed(SEED)
-np.random.seed(SEED)
-torch.manual_seed(SEED)
-
-# -------------------------------
 # Fix OpenMP runtime issue (Windows)
 # -------------------------------
 import os
@@ -165,6 +153,7 @@ plt.show()
 # --------------------------------
 # Inference: Predict on new user input
 # --------------------------------
+# This section demonstrates real-world usage of the trained model
 
 print("\n--- Irrigation Requirement Prediction (User Input) ---")
 
