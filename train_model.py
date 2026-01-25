@@ -193,8 +193,9 @@ try:
     # Display result
     if prediction == 1:
         print("\nPrediction: Irrigation REQUIRED")
+        print("Note: Model prediction is influenced by majority irrigation cases in training data.")
     else:
-        print("\nPrediction: Irrigation NOT required")
+        print("\nPrediction: Irrigation LIKELY NOT required")
 
 except ValueError:
     print("Invalid input. Please enter numeric values only.")
