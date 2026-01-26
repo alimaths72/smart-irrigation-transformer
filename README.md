@@ -75,3 +75,47 @@ The Transformer-based model consistently outperformed the baseline model, indica
 - The model was trained on a specific dataset and may require retraining or fine-tuning before deployment in different geographic regions or environmental conditions  
 
 Despite these limitations, the proposed system demonstrates reliable performance and provides a practical foundation for smart irrigation decision support.
+## Usage and How to Run
+
+This project is divided into two main components: model training and real-time prediction.
+
+### 1. Training the Model
+To train the models and save the trained Transformer model and scaler, run the following command:
+
+python train_model.py
+
+This script performs the following steps:
+- Loads and preprocesses the dataset
+- Trains a baseline Logistic Regression model
+- Trains a Transformer-based deep learning model
+- Evaluates and compares model performance
+- Saves the trained Transformer model and scaler for inference
+
+Note: Training needs to be performed only once unless the dataset or model configuration is changed.
+
+---
+
+### 2. Running Real-Time Prediction
+To perform irrigation prediction using user-provided input values, run:
+
+python predict.py
+
+The script will prompt the user to enter:
+- Moisture Index (MOI)
+- Temperature (°C)
+- Humidity (%)
+
+Based on the input values, the trained Transformer model predicts the irrigation requirement level along with a confidence score.
+
+---
+
+### 3. Example Input
+MOI: 0.45  
+Temperature (°C): 32  
+Humidity (%): 60  
+
+### Example Output
+Prediction: Irrigation LIKELY REQUIRED  
+Prediction confidence: 0.82  
+
+This separation of training and inference ensures efficient execution and reflects real-world machine learning deployment practices.
