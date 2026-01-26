@@ -59,3 +59,19 @@ This architecture allows the model to capture feature interactions more effectiv
 
 ### 5. Inference Pipeline
 Training and inference were separated into different scripts. The trained Transformer model and the scaler are saved after training and loaded during inference, enabling real-time prediction without retraining the model.
+## Results and Limitations
+
+### Results
+The performance of the baseline and Transformer-based models was evaluated using accuracy as the primary metric.
+
+- **Baseline Logistic Regression Accuracy:** ~81%  
+- **Transformer Model Accuracy:** ~84%  
+
+The Transformer-based model consistently outperformed the baseline model, indicating its improved capability to learn complex relationships among environmental features relevant to irrigation decision-making.
+
+### Limitations
+- The dataset exhibits class imbalance, which can bias the model toward majority irrigation classes during prediction  
+- Accuracy was used as the primary evaluation metric; incorporating additional metrics such as precision, recall, and F1-score could provide deeper insights  
+- The model was trained on a specific dataset and may require retraining or fine-tuning before deployment in different geographic regions or environmental conditions  
+
+Despite these limitations, the proposed system demonstrates reliable performance and provides a practical foundation for smart irrigation decision support.
