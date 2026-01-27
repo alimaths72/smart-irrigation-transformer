@@ -119,3 +119,28 @@ Prediction: Irrigation LIKELY REQUIRED
 Prediction confidence: 0.82  
 
 This separation of training and inference ensures efficient execution and reflects real-world machine learning deployment practices.
+## Sustainable Development Goals (SDG) Alignment
+
+This project contributes to the following United Nations Sustainable Development Goals:
+
+- **SDG 2: Zero Hunger**  
+  By enabling efficient irrigation decisions, the system supports improved agricultural productivity and crop yield.
+
+- **SDG 6: Clean Water and Sanitation**  
+  The model promotes responsible water usage by reducing over-irrigation and minimizing water wastage through data-driven decision-making.
+
+Smart irrigation systems powered by machine learning can play a significant role in sustainable agriculture and water resource management.
+
+---
+
+## Conclusion and Future Work
+
+This project successfully demonstrates the application of machine learning for smart irrigation requirement prediction. A Transformer-based model was developed and compared with a baseline Logistic Regression model, achieving improved and reproducible performance.
+
+The separation of training and inference pipelines ensures efficient execution and reflects real-world machine learning deployment practices.
+
+### Future Work
+- Incorporating additional environmental features such as rainfall and soil type  
+- Addressing class imbalance using advanced resampling techniques  
+- Evaluating the model using additional performance metrics  
+- Deploying the model as a web or mobile-based decision support system  
