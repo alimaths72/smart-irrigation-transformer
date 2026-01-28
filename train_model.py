@@ -78,19 +78,21 @@ y_test_torch = torch.tensor(y_test, dtype=torch.long)
 # Simple Transformer Model
 # -------------------------------
 class SimpleTransformer(nn.Module):
-    def __init__(self, input_dim, num_classes):
+    def __init__(self, input_dim, hidden_dim, num_classes):
         super(SimpleTransformer, self).__init__()
 
-        self.embedding = nn.Linear(input_dim, 16)
+        self.embedding = nn.Linear(input_dim, hidden_dim)
 
         encoder_layer = nn.TransformerEncoderLayer(
-            d_model=16, nhead=4, batch_first=True
-        )
+    d_model=hidden_dim, nhead=4, batch_first=True
+)
+
         self.transformer = nn.TransformerEncoder(
             encoder_layer, num_layers=1
         )
 
-        self.fc = nn.Linear(16, num_classes)
+        self.fc = nn.Linear(hidden_dim, num_classes)
+
 
     def forward(self, x):
         x = x.unsqueeze(1)        # (batch, seq_len=1, features)
@@ -101,18 +103,29 @@ class SimpleTransformer(nn.Module):
         return x
 
 # -------------------------------
-# Model setup
 # -------------------------------
+# Model setup & hyperparameters
+# -------------------------------
+
 num_classes = len(set(y))
-model = SimpleTransformer(input_dim=3, num_classes=num_classes)
+
+# Tuned hyperparameters
+hidden_dim = 32
+learning_rate = 0.0005
+epochs = 20
+
+model = SimpleTransformer(
+    input_dim=3,
+    hidden_dim=hidden_dim,
+    num_classes=num_classes
+)
 
 criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+optimizer = torch.optim.Adam(
+    model.parameters(),
+    lr=learning_rate
+)
 
-# -------------------------------
-# Training loop
-# -------------------------------
-epochs = 10
 
 for epoch in range(epochs):
     model.train()
