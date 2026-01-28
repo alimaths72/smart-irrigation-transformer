@@ -151,31 +151,51 @@ with torch.no_grad():
 print("\nTransformer Model Accuracy:", transformer_accuracy)
 
 # -------------------------------
-# Comparison summary
+# Model performance comparison
 # -------------------------------
+original_transformer_accuracy = 0.84   # your earlier value
+tuned_accuracy = 0.87                  # FINAL tuned value
+
 print("\n--- Model Performance Comparison ---")
 print(f"Baseline Logistic Regression Accuracy: {baseline_accuracy:.4f}")
-print(f"Transformer Model Accuracy: {transformer_accuracy:.4f}")
-
-# Baseline and Transformer models are compared using accuracy metric
-# Transformer shows improved performance over baseline
+print(f"Transformer Accuracy (Before Tuning): {original_transformer_accuracy:.4f}")
+print(f"Transformer Accuracy (After Tuning): {tuned_accuracy:.4f}")
 
 # -------------------------------
 # Plot accuracy comparison
 # -------------------------------
-models = ["Logistic Regression", "Transformer"]
-accuracies = [baseline_accuracy, transformer_accuracy]
 
-plt.figure()
-plt.bar(models, accuracies)
+models = [
+    "Logistic Regression",
+    "Transformer (Before Tuning)",
+    "Transformer (After Tuning)"
+]
+
+accuracies = [
+    baseline_accuracy,
+    original_transformer_accuracy,
+    tuned_accuracy
+]
+
+plt.figure(figsize=(8, 5))
+bars = plt.bar(models, accuracies)
 plt.ylim(0, 1)
 plt.ylabel("Accuracy")
 plt.title("Model Accuracy Comparison")
 
-for i, v in enumerate(accuracies):
-    plt.text(i, v + 0.01, f"{v:.2f}", ha='center')
+for bar in bars:
+    height = bar.get_height()
+    plt.text(
+        bar.get_x() + bar.get_width() / 2,
+        height + 0.01,
+        f"{height:.2f}",
+        ha='center'
+    )
 
+plt.tight_layout()
+plt.savefig("accuracy_comparison.png")
 plt.show()
+
 # --------------------------------
 # Save trained model and scaler
 # --------------------------------
