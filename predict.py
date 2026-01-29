@@ -16,14 +16,14 @@ class SimpleTransformer(nn.Module):
     def __init__(self, input_dim, num_classes):
         super(SimpleTransformer, self).__init__()
 
-        self.embedding = nn.Linear(input_dim, 16)
+        self.embedding = nn.Linear(input_dim, 32)
         encoder_layer = nn.TransformerEncoderLayer(
-            d_model=16, nhead=4, batch_first=True
+            d_model=32, nhead=4, batch_first=True
         )
         self.transformer = nn.TransformerEncoder(
             encoder_layer, num_layers=1
         )
-        self.fc = nn.Linear(16, num_classes)
+        self.fc = nn.Linear(32, num_classes)
 
     def forward(self, x):
         x = x.unsqueeze(1)
@@ -37,10 +37,10 @@ class SimpleTransformer(nn.Module):
 # Load trained model & scaler
 # -------------------------------
 model = SimpleTransformer(input_dim=3, num_classes=3)
-model.load_state_dict(torch.load("transformer_model.pth"))
+model.load_state_dict(torch.load("models/transformer_model.pth"))
 model.eval()
 
-scaler = joblib.load("scaler.pkl")
+scaler = joblib.load("models/scaler.pkl")
 
 # -------------------------------
 # User input for prediction

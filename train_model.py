@@ -201,7 +201,7 @@ plt.show()
 # --------------------------------
 import joblib
 
-torch.save(model.state_dict(), "transformer_model.pth")
-joblib.dump(scaler, "scaler.pkl")
+torch.save(model.state_dict(), "models/transformer_model.pth")
+joblib.dump(scaler, "models/scaler.pkl")
 
 print("Model and scaler saved successfully.")
