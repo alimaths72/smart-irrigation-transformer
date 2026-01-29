@@ -110,25 +110,29 @@ python train_model.py
 To perform irrigation prediction using the trained model:
 python predict.py
 
----
-
 ## 8. Repository Structure
+
+```
+smart-irrigation-transformer/
 ├── data/
+│
 ├── models/
 │   ├── transformer_model.pth
 │   └── scaler.pkl
+│
 ├── results/
 │   ├── accuracy_comparison.png
 │   └── results.txt
+│
 ├── train_model.py
 ├── predict.py
 ├── README.md
 ├── requirements.txt
 ├── Short_Project_Report_Smart_Irrigation.docx
 ├── Project_Documentation_Smart_Irrigation.docx
-├── Smart_Irrigation_Presentation.pptx
+└── Smart_Irrigation_Presentation.pptx
+```
 
----
 
 ## 9. Sustainable Development Goals (SDG) Alignment
 This project aligns with the following United Nations Sustainable Development Goals:
