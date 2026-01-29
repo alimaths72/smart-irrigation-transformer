@@ -1,146 +1,152 @@
-# Smart Irrigation Requirement Prediction using Machine Learning
+# Smart Irrigation Requirement Prediction Using Machine Learning
 
-This project focuses on predicting irrigation requirements using environmental and soil-related features such as Moisture Index (MOI), temperature, and humidity. A baseline machine learning model and a Transformer-based deep learning model are developed and compared to determine irrigation needs effectively.
+## Abstract / Overview
+This project focuses on predicting irrigation requirements using machine learning techniques based on environmental and soil-related parameters. The aim is to support efficient water management in agriculture by providing data-driven irrigation recommendations. A baseline Logistic Regression model is compared with a Transformer-based deep learning model, followed by controlled hyperparameter tuning to improve predictive performance.
 
-The system is designed to follow a complete machine learning pipeline, including data preprocessing, model training, evaluation, and real-time inference.
-## Problem Statement
+---
 
-Efficient water usage is a major challenge in agriculture. Over-irrigation leads to water wastage, while under-irrigation negatively affects crop yield. Traditional irrigation decisions are often based on fixed schedules rather than real environmental conditions.
+## 1. Introduction
+Efficient irrigation is a major challenge in modern agriculture, particularly in regions affected by water scarcity. Traditional irrigation practices often rely on fixed schedules or manual judgment, which can result in over-irrigation or under-irrigation. This project addresses the problem by developing a machine learning–based system that predicts irrigation requirements using environmental data, enabling smarter and more sustainable irrigation decisions.
 
-This project aims to address this problem by using machine learning techniques to predict irrigation requirements based on real-time environmental data.
+### Project Objectives
+- Predict irrigation requirements using machine learning
+- Compare baseline and deep learning models
+- Improve model performance through hyperparameter tuning
+- Support sustainable water management practices
 
-## Project Objectives
+---
 
-- To analyze environmental and soil-related data relevant to irrigation decisions  
-- To develop a baseline machine learning model for irrigation prediction  
-- To implement a Transformer-based model for improved performance  
-- To compare baseline and deep learning model results  
-- To provide a real-time prediction system for irrigation requirements  
-## Dataset Description
+## 2. Dataset Description
+The dataset used in this project is an agricultural dataset containing approximately 16,000 records.
 
-The dataset used in this project contains environmental and soil-related attributes relevant to irrigation decision-making. It consists of over 16,000 samples collected under varying environmental conditions.
-
-### Features Used
-- **Moisture Index (MOI):** Represents soil moisture level (range: 0.0 – 1.0)  
-- **Temperature:** Ambient temperature measured in degrees Celsius  
-- **Humidity:** Relative humidity expressed as a percentage  
+### Features
+- Moisture Index (MOI)
+- Temperature
+- Humidity
 
 ### Target Variable
-- **Irrigation Requirement:** A multi-class label representing different levels of irrigation need  
+- Irrigation requirement level (classification)
 
-The dataset is structured and relatively clean, requiring minimal preprocessing beyond feature selection and scaling.
+### Preprocessing Steps
+- Feature selection
+- Train–test split (80% training, 20% testing)
+- Feature scaling using standardization
 
 ---
 
-## Methodology
+## 3. Methodology
+The project follows a structured machine learning pipeline:
 
-The project follows a structured machine learning pipeline to ensure correctness, reproducibility, and real-world applicability.
+1. Data loading and preprocessing
+2. Feature scaling
+3. Train–test split
+4. Model training
+5. Model evaluation
+6. Model saving
+7. Inference using a separate prediction script
 
-### 1. Data Preprocessing
-- Selected relevant numerical features (MOI, temperature, humidity)  
-- Applied train-test split to avoid data leakage  
-- Used standard scaling to normalize feature values  
+### Models Used
+- Baseline Model: Logistic Regression
+- Advanced Model: Transformer-based Deep Learning Model
 
-### 2. Baseline Model
-A Logistic Regression model was implemented as a baseline to establish initial performance and provide a comparison point for the deep learning model.
+The Transformer architecture was selected due to its ability to capture non-linear relationships between environmental features more effectively than traditional machine learning models.
 
-### 3. Transformer-Based Model
-A lightweight Transformer architecture was designed for tabular data. The model consists of:
-- A linear embedding layer  
-- A Transformer encoder block  
-- A fully connected output layer  
+---
 
-This architecture allows the model to capture feature interactions more effectively than the baseline model.
+## 4. Experimental Setup
+- Train–Test Split: 80% / 20%
+- Loss Function: Cross-Entropy Loss
+- Optimizer: Adam
+- Evaluation Metric: Accuracy
+- Frameworks: Python, Scikit-learn, PyTorch
+- Execution Environment: CPU-based
 
-### 4. Training and Evaluation
-- Models were trained using the training subset of the data  
-- Accuracy was used as the primary evaluation metric  
-- Random seeds were fixed to ensure reproducibility and stable results  
+---
 
-### 5. Inference Pipeline
-Training and inference were separated into different scripts. The trained Transformer model and the scaler are saved after training and loaded during inference, enabling real-time prediction without retraining the model.
-## Results and Limitations
+## 5. Results and Limitations
 
 ### Results
-The performance of the baseline and Transformer-based models was evaluated using accuracy as the primary metric.
+The following performance results were obtained:
 
-- **Baseline Logistic Regression Accuracy:** ~81%  
-- **Transformer Model Accuracy:** ~84%  
+- Logistic Regression: ~81% accuracy
+- Transformer (Before Tuning): ~84% accuracy
+- Transformer (After Tuning): ~87% accuracy
 
-The Transformer-based model consistently outperformed the baseline model, indicating its improved capability to learn complex relationships among environmental features relevant to irrigation decision-making.
+A bar chart visualization comparing model performance is included in the repository.
 
 ### Limitations
-- The dataset exhibits class imbalance, which can bias the model toward majority irrigation classes during prediction  
-- Accuracy was used as the primary evaluation metric; incorporating additional metrics such as precision, recall, and F1-score could provide deeper insights  
-- The model was trained on a specific dataset and may require retraining or fine-tuning before deployment in different geographic regions or environmental conditions  
+- The dataset contains a limited number of environmental features
+- Accuracy is used as the primary evaluation metric
+- The system is trained on historical data and does not yet integrate real-time sensor inputs
 
-Despite these limitations, the proposed system demonstrates reliable performance and provides a practical foundation for smart irrigation decision support.
-## Usage and How to Run
+---
 
-This project is divided into two main components: model training and real-time prediction.
+## 6. Hyperparameters
+The performance of the Transformer-based model depends on several key hyperparameters. Controlled tuning was performed after ensuring error-free execution to balance accuracy and model stability.
 
-### 1. Training the Model
-To train the models and save the trained Transformer model and scaler, run the following command:
+| Hyperparameter | Value |
+|---------------|-------|
+| Hidden dimension (hidden_dim) | 32 |
+| Number of attention heads (nhead) | 4 |
+| Number of Transformer layers | 1 |
+| Learning rate | 0.0005 |
+| Training epochs | 20 |
 
+The final configuration was selected to achieve stable performance without overfitting. Experiments with higher epochs and larger hidden dimensions were conducted, but the chosen configuration provided the best balance between accuracy and generalization.
+
+---
+
+## 7. Usage and How to Run
+
+### Installation
+Install the required dependencies using:
+pip install -r requirements.txt
+
+### Training the Model
+To train the model and generate evaluation results:
 python train_model.py
 
-This script performs the following steps:
-- Loads and preprocesses the dataset
-- Trains a baseline Logistic Regression model
-- Trains a Transformer-based deep learning model
-- Evaluates and compares model performance
-- Saves the trained Transformer model and scaler for inference
-
-Note: Training needs to be performed only once unless the dataset or model configuration is changed.
-
----
-
-### 2. Running Real-Time Prediction
-To perform irrigation prediction using user-provided input values, run:
-
+### Running Inference
+To perform irrigation prediction using the trained model:
 python predict.py
 
-The script will prompt the user to enter:
-- Moisture Index (MOI)
-- Temperature (°C)
-- Humidity (%)
+---
 
-Based on the input values, the trained Transformer model predicts the irrigation requirement level along with a confidence score.
+## 8. Repository Structure
+├── data/
+├── models/
+│   ├── transformer_model.pth
+│   └── scaler.pkl
+├── results/
+│   ├── accuracy_comparison.png
+│   └── results.txt
+├── train_model.py
+├── predict.py
+├── README.md
+├── requirements.txt
+├── Short_Project_Report_Smart_Irrigation.docx
+├── Project_Documentation_Smart_Irrigation.docx
+├── Smart_Irrigation_Presentation.pptx
 
 ---
 
-### 3. Example Input
-MOI: 0.45  
-Temperature (°C): 32  
-Humidity (%): 60  
-
-### Example Output
-Prediction: Irrigation LIKELY REQUIRED  
-Prediction confidence: 0.82  
-
-This separation of training and inference ensures efficient execution and reflects real-world machine learning deployment practices.
-## Sustainable Development Goals (SDG) Alignment
-
-This project contributes to the following United Nations Sustainable Development Goals:
-
-- **SDG 2: Zero Hunger**  
-  By enabling efficient irrigation decisions, the system supports improved agricultural productivity and crop yield.
-
-- **SDG 6: Clean Water and Sanitation**  
-  The model promotes responsible water usage by reducing over-irrigation and minimizing water wastage through data-driven decision-making.
-
-Smart irrigation systems powered by machine learning can play a significant role in sustainable agriculture and water resource management.
+## 9. Sustainable Development Goals (SDG) Alignment
+This project aligns with the following United Nations Sustainable Development Goals:
+- SDG 2: Zero Hunger
+- SDG 6: Clean Water and Sanitation
+- SDG 12: Responsible Consumption and Production
 
 ---
 
-## Conclusion and Future Work
+## 10. Conclusion and Future Work
+This project demonstrates the effective application of machine learning for irrigation requirement prediction. The comparison between traditional machine learning and Transformer-based models highlights the benefits of advanced architectures for agricultural decision support systems. Future work may include incorporating additional environmental features, using advanced evaluation metrics, and integrating real-time sensor data for deployment in smart irrigation systems.
 
-This project successfully demonstrates the application of machine learning for smart irrigation requirement prediction. A Transformer-based model was developed and compared with a baseline Logistic Regression model, achieving improved and reproducible performance.
+---
 
-The separation of training and inference pipelines ensures efficient execution and reflects real-world machine learning deployment practices.
+## 11. References
+Relevant research papers and online resources on smart irrigation systems and machine learning were consulted during the development of this project.
 
-### Future Work
-- Incorporating additional environmental features such as rainfall and soil type  
-- Addressing class imbalance using advanced resampling techniques  
-- Evaluating the model using additional performance metrics  
-- Deploying the model as a web or mobile-based decision support system  
+---
+
+## 12. Acknowledgments
+Special thanks to Sir Talha for guidance and supervision throughout the project.
